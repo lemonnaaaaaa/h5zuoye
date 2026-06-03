@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>微笑国度的暗面：当执法者成为绑匪 —— 泰国警察绑架勒索事件深度报道</title>
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --deep-blue: #0d1b2a;
+  --navy: #1a2a3a;
+  --slate: #2c3e50;
+  --steel: #3d5166;
+  --warm-yellow: #f0c040;
+  --warm-gold: #e8b830;
+  --alert-red: #c0392b;
+  --alert-bright: #e74c3c;
+  --beige: #f5f0e8;
+  --cream: #fafaf5;
+  --text-dark: #1a1a2e;
+  --text-mid: #4a4a5e;
+  --text-light: #8a8a9e;
+  --white: #ffffff;
+  --card-bg: rgba(255,255,255,0.92);
+  --shadow: 0 4px 24px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.18);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-heading: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;
+  --font-body: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--deep-blue);
+  color: var(--text-dark);
+  overflow: hidden;
+  height: 100vh; height: 100dvh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none; -webkit-user-select: none;
+  touch-action: pan-y;
+}
+.main-container {
+  width: 100%; height: 100vh; height: 100dvh;
+  overflow-y: scroll; overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.main-container::-webkit-scrollbar { display: none; }
+
+/* ============ LAYER BASE ============ */
+.layer {
+  width: 100%; height: 100vh; height: 100dvh;
+  scroll-snap-align: start; scroll-snap-stop: always;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center;
+  padding: 24px 20px; overflow: hidden;
+}
+.layer-scrollable {
+  overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+}
+.layer-scrollable::-webkit-scrollbar { display: none; }
+
+/* ============ LAYER BG IMAGES ============ */
+.layer-bg-img {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0; pointer-events: none;
+}
+.layer-bg-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1; pointer-events: none;
+}
+.layer > *:not(.layer-bg-img):not(.layer-bg-overlay):not(.particles-container) {
+  position: relative; z-index: 2;
+}
+
+/* ============ LAYER 1: COVER - INTERACTIVE PASSPORT ============ */
+.layer-cover {
+  background: linear-gradient(160deg, #0a1620 0%, #0d1b2a 30%, #1a2a3a 60%, #0d1b2a 100%);
+  justify-content: center; gap: 0; overflow: visible;
+}
+.cover-bg-img {
+  position: absolute; top: 0; left: 0; width: 100%; height: 55%;
+  object-fit: cover; z-index: 0; opacity: 0.35;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+}
+/* 3D Scene */
+.passport-scene {
+  perspective: 1400px; width: 220px; height: 330px;
+  margin-bottom: 20px; position: relative;
+  animation: sceneSlideIn 0.8s ease-out forwards;
+}
+@keyframes sceneSlideIn {
+  0% { transform: translateX(-60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+/* Hint */
+.passport-hint {
+  position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.55); font-size: 11px; letter-spacing: 2px;
+  white-space: nowrap; z-index: 10;
+  animation: hintPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hintPulse {
+  0%,100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.passport-hint.done { display: none; }
+/* 3D Book */
+.passport-book {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d; cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.passport-book:hover { transform: translateY(-4px); }
+.passport-book.opened { cursor: default; }
+.passport-book.opened:hover { transform: none; }
+/* Back cover (fixed) */
+.passport-back-cover {
+  width: 100%; height: 100%; position: absolute;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 40%, #1a2a3a 100%);
+  border-radius: 6px 8px 8px 6px;
+  border: 3px solid #c9a84c;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+}
+.passport-back-cover::after {
+  content: ''; position: absolute; inset: 10px;
+  border: 1px solid rgba(201,168,76,0.3); border-radius: 3px; pointer-events: none;
+}
+/* Front cover — hinges from left */
+.passport-cover-front {
+  width: 100%; height: 100%; position: absolute;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 40%, #1a2a3a 100%);
+  border-radius: 8px 6px 6px 8px;
+  border: 3px solid #c9a84c;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(201,168,76,0.15);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 5;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 28px 20px;
+  backface-visibility: hidden;
+}
+.passport-cover-front::before {
+  content: ''; position: absolute; top: 14px; left: 14px; right: 14px; bottom: 14px;
+  border: 1px solid rgba(201,168,76,0.4); border-radius: 3px; pointer-events: none;
+}
+.passport-cover-front.opened {
+  transform: rotateY(-175deg);
+  box-shadow: -4px 6px 20px rgba(0,0,0,0.3);
+}
+/* Cover inside face */
+.passport-cover-inside {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, #fafaf5, #f0ead8);
+  border-radius: 8px 6px 6px 8px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  padding: 20px 16px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center;
+  border: 2px solid #d4c5a0;
+}
+.cover-inside-stamp {
+  width: 64px; height: 64px; border: 3px solid var(--alert-red);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transform: rotate(-10deg); margin-bottom: 10px;
+}
+.cover-inside-stamp span {
+  color: var(--alert-red); font-size: 10px; font-weight: 900;
+  letter-spacing: 1px; text-align: center; line-height: 1.2;
+}
+.cover-inside-text {
+  font-size: 10px; color: #8a8a9e; letter-spacing: 1px;
+  text-align: center; line-height: 1.4;
+}
+/* Cover front face elements */
+.cover-emblem-img {
+  width: 68px; height: 68px; border-radius: 50%;
+  object-fit: cover; margin-bottom: 10px;
+  border: 2px solid rgba(201,168,76,0.5);
+  box-shadow: 0 0 20px rgba(240,192,64,0.15);
+}
+.cover-report-label {
+  color: #c9a84c; font-size: 12px; letter-spacing: 4px;
+  font-weight: 600; text-transform: uppercase;
+}
+.cover-report-sub {
+  color: rgba(201,168,76,0.65); font-size: 9px;
+  letter-spacing: 3px; margin-top: 5px;
+}
+/* Inner pages stack — revealed when cover opens */
+.passport-pages-stack {
+  position: absolute; top: 3px; left: 3px;
+  width: calc(100% - 6px); height: calc(100% - 6px);
+  background: #fafaf5; border-radius: 0 6px 6px 0;
+  z-index: 1; overflow: hidden;
+  border-right: 1px solid #d4c5a0;
+}
+.passport-inner-page {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: #fefef9; padding: 14px 12px;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
+  transform-origin: left center;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.passport-inner-page.active-page { z-index: 3; }
+.passport-inner-page.flipping-out {
+  transform: rotateY(-90deg); opacity: 0.2; z-index: 2;
+}
+.passport-inner-page.flipping-in {
+  animation: pageFlipIn 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 3;
+}
+@keyframes pageFlipIn {
+  0% { transform: rotateY(90deg); opacity: 0.3; }
+  100% { transform: rotateY(0deg); opacity: 1; }
+}
+.passport-inner-page.prev-page { transform: translateX(-30%); opacity: 0.3; z-index: 1; pointer-events: none; }
+.passport-inner-page.next-page { transform: translateX(30%); opacity: 0.3; z-index: 1; pointer-events: none; }
+.passport-inner-page.hidden-page { transform: translateX(60%); opacity: 0; z-index: 0; pointer-events: none; }
+.passport-pages-stack.flipping { pointer-events: none; }
+
+/* Page 1: Photo page */
+.pp-photo-header {
+  font-family: var(--font-heading); font-size: 10px;
+  color: #2c3e50; letter-spacing: 2px; text-align: center;
+  text-transform: uppercase; margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.pp-photo-area {
+  width: 70px; height: 90px; margin: 0 auto 10px;
+  background: #e8e8e8; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; border: 1px solid #ccc;
+}
+.pp-photo-area img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.pp-info-row {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: #4a4a5e; padding: 3px 0;
+  border-bottom: 1px dotted rgba(0,0,0,0.08);
+}
+.pp-info-row .lbl { color: #8a8a9e; }
+.pp-passport-no {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  color: #1a1a2e; text-align: center; margin-top: 6px;
+  font-family: monospace;
+}
+
+/* Page 2: Case info */
+.pp-info-title {
+  font-family: var(--font-heading); font-size: 13px; font-weight: 700;
+  color: var(--text-dark); text-align: center; margin-bottom: 10px;
+  line-height: 1.4;
+}
+.pp-info-desc {
+  font-size: 11px; color: var(--text-mid); line-height: 1.6;
+  text-align: left;
+}
+.pp-info-desc .hl { color: var(--alert-red); font-weight: 700; }
+.pp-info-stamp {
+  text-align: center; margin-top: 10px; font-size: 9px;
+  color: var(--alert-red); letter-spacing: 2px; font-weight: 700;
+  border: 2px solid var(--alert-red); padding: 4px 8px;
+  display: inline-block; transform: rotate(-3deg);
+}
+
+/* Page 3: Stamps */
+.pp-stamp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.pp-stamp-item {
+  border: 1px dashed rgba(0,0,0,0.15); border-radius: 4px;
+  padding: 8px; text-align: center;
+}
+.pp-stamp-item .stamp-icon { font-size: 20px; margin-bottom: 2px; }
+.pp-stamp-item .stamp-date { font-size: 9px; color: #8a8a9e; letter-spacing: 1px; }
+.pp-stamp-item .stamp-label { font-size: 9px; color: #2c3e50; font-weight: 600; }
+.pp-stamp-warn {
+  text-align: center; margin-top: 10px; padding: 8px;
+  background: rgba(231,76,60,0.08); border-radius: 4px;
+  font-size: 9px; color: var(--alert-red); letter-spacing: 1px; font-weight: 600;
+}
+
+/* Page nav */
+.passport-page-nav {
+  position: absolute; bottom: -38px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; z-index: 10;
+  opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+.passport-page-nav.visible { opacity: 1; pointer-events: auto; }
+.pp-nav-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.pp-nav-btn:active { background: rgba(255,255,255,0.2); }
+.pp-nav-btn:disabled { opacity: 0.2; cursor: default; }
+.pp-page-indicator {
+  font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 2px;
+}
+
+.cover-info {
+  text-align: center; opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards 1s;
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.cover-title {
+  color: #ffffff; font-family: var(--font-heading); font-size: 22px;
+  font-weight: 700; line-height: 1.4; margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.cover-title .accent { color: var(--warm-yellow); }
+.cover-subtitle {
+  color: rgba(255,255,255,0.6); font-size: 13px; letter-spacing: 1px; margin-bottom: 24px;
+}
+.cover-meta {
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px;
+}
+.cover-swipe {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.35); font-size: 12px; letter-spacing: 2px;
+  animation: swipeHint 2s ease-in-out infinite 2.2s; opacity: 0; z-index: 2;
+}
+@keyframes swipeHint {
+  0%,100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.7; transform: translateX(-50%) translateY(6px); }
+}
+
+/* ============ LAYER 2: EVENT ============ */
+.layer-event {
+  background: linear-gradient(180deg, #f5f0e8 0%, #ede6d8 40%, #e8dfcf 100%);
+  padding-top: 40px; justify-content: flex-start; gap: 0;
+}
+.event-header-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 200px;
+  object-fit: cover; z-index: 0; opacity: 0.15;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
+.event-header {
+  text-align: center; margin-bottom: 20px; opacity: 0;
+  transform: translateY(30px); transition: all 0.8s ease-out;
+}
+.event-header.visible { opacity: 1; transform: translateY(0); }
+.event-section-label {
+  font-size: 11px; color: var(--alert-red); letter-spacing: 4px;
+  font-weight: 700; text-transform: uppercase; margin-bottom: 6px;
+}
+.event-main-title {
+  font-family: var(--font-heading); font-size: 20px;
+  font-weight: 700; color: var(--text-dark); line-height: 1.4;
+}
+.event-contrast {
+  display: flex; gap: 12px; width: 100%; max-width: 400px;
+  margin-bottom: 16px; opacity: 0; transform: translateY(20px);
+  transition: all 0.7s ease-out 0.2s;
+}
+.event-contrast.visible { opacity: 1; transform: translateY(0); }
+.contrast-card {
+  flex: 1; border-radius: var(--radius-sm); text-align: center; overflow: hidden;
+  position: relative; min-height: 140px;
+}
+.contrast-card-img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; top: 0; left: 0; z-index: 0;
+}
+.contrast-card-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+}
+.contrast-card-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px 14px; height: 100%; min-height: 140px;
+}
+.contrast-card.thailand .contrast-card-overlay {
+  background: linear-gradient(135deg, rgba(232,240,224,0.75), rgba(200,220,185,0.65));
+}
+.contrast-card.darkside .contrast-card-overlay {
+  background: linear-gradient(135deg, rgba(252,228,228,0.75), rgba(240,200,200,0.7));
+}
+.contrast-thumb {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover; margin-bottom: 6px; border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.contrast-card.darkside .contrast-thumb {
+  border-color: rgba(231,76,60,0.3);
+}
+.contrast-label { font-weight: 700; margin-bottom: 4px; font-size: 13px; }
+.contrast-desc { font-size: 10px; line-height: 1.4; }
+.contrast-card.thailand .contrast-label { color: #2a5a1e; }
+.contrast-card.thailand .contrast-desc { color: #3a6b30; }
+.contrast-card.darkside .contrast-label { color: var(--alert-red); }
+.contrast-card.darkside .contrast-desc { color: #8b1a1a; }
+
+.event-fact-card {
+  width: 100%; max-width: 400px; background: var(--card-bg);
+  border-radius: var(--radius); padding: 20px 18px;
+  box-shadow: var(--shadow); border-left: 4px solid var(--alert-red);
+  margin-bottom: 14px; opacity: 0; transform: translateY(20px);
+  transition: all 0.7s ease-out 0.4s;
+}
+.event-fact-card.visible { opacity: 1; transform: translateY(0); }
+.fact-card-label {
+  font-size: 10px; color: var(--alert-red); letter-spacing: 3px;
+  font-weight: 700; margin-bottom: 8px;
+}
+.fact-card-title {
+  font-family: var(--font-heading); font-size: 16px;
+  font-weight: 700; color: var(--text-dark); margin-bottom: 10px; line-height: 1.5;
+}
+.fact-card-body {
+  font-size: 14px; color: var(--text-mid); line-height: 1.7;
+}
+.fact-card-body .highlight { color: var(--alert-red); font-weight: 700; }
+.fact-card-illu {
+  width: 100%; max-height: 100px; object-fit: cover;
+  border-radius: 6px; margin-top: 12px; opacity: 0.6;
+}
+
+.event-vibration {
+  width: 100%; max-width: 400px; text-align: center; padding: 14px;
+  margin-top: 4px; opacity: 0; transition: all 0.6s ease-out 0.7s;
+}
+.event-vibration.visible { opacity: 1; }
+.vibe-icon { font-size: 32px; animation: shake 2s ease-in-out infinite 1s; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  10%,30%,50%,70%,90% { transform: translateX(-3px); }
+  20%,40%,60%,80% { transform: translateX(3px); }
+}
+.vibe-text {
+  font-size: 12px; color: var(--alert-red); font-weight: 600;
+  letter-spacing: 2px; margin-top: 4px;
+}
+
+/* ============ LAYER 3: TIMELINE - HORIZONTAL SCROLL ============ */
+.layer-timeline {
+  background: linear-gradient(180deg, #0d1b2a 0%, #1a2a3a 50%, #0d1b2a 100%);
+  justify-content: flex-start; padding-top: 20px;
+  padding-left: 0; padding-right: 0;
+}
+.timeline-header {
+  width: 100%; max-width: 400px; text-align: center; margin-bottom: 12px;
+  flex-shrink: 0; padding: 0 16px;
+}
+.timeline-label {
+  font-size: 10px; color: var(--warm-yellow); letter-spacing: 4px;
+  font-weight: 700; margin-bottom: 4px;
+}
+.timeline-title {
+  font-family: var(--font-heading); font-size: 18px; color: #ffffff; font-weight: 700;
+}
+.timeline-scroll-hint {
+  font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 2px; margin-top: 4px;
+}
+
+/* Horizontal scroll rail */
+.timeline-h-rail-wrap {
+  width: 100%; flex: 1; position: relative;
+  overflow-y: hidden; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex; align-items: center;
+  padding: 8px 0; cursor: grab;
+  min-height: 200px;
+  touch-action: pan-x;
+}
+.timeline-h-rail-wrap::-webkit-scrollbar { height: 4px; }
+.timeline-h-rail-wrap::-webkit-scrollbar-track { background: transparent; }
+.timeline-h-rail-wrap::-webkit-scrollbar-thumb { background: rgba(240,192,64,0.25); border-radius: 2px; }
+.timeline-h-rail {
+  display: flex; align-items: stretch; gap: 16px;
+  padding: 10px 24px; min-width: max-content; height: 100%;
+}
+/* Node card */
+.tl-node {
+  width: 180px; flex-shrink: 0; scroll-snap-align: center;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm); padding: 18px 14px;
+  cursor: pointer; transition: all 0.25s ease;
+  text-align: center; display: flex; flex-direction: column;
+  justify-content: center; min-height: 170px;
+}
+.tl-node:active { transform: scale(0.95); }
+.tl-node.active {
+  border-color: var(--warm-yellow);
+  background: rgba(240,192,64,0.12);
+  box-shadow: 0 0 24px rgba(240,192,64,0.18);
+}
+.tl-node-time {
+  font-size: 12px; color: var(--warm-yellow); font-weight: 700;
+  letter-spacing: 1px; margin-bottom: 8px;
+}
+.tl-node-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--steel); border: 2px solid rgba(240,192,64,0.3);
+  margin: 0 auto 10px;
+}
+.tl-node.active .tl-node-dot {
+  background: var(--warm-yellow); border-color: var(--warm-yellow);
+  box-shadow: 0 0 12px rgba(240,192,64,0.6);
+}
+.tl-node-title {
+  font-size: 14px; color: #fff; font-weight: 700; line-height: 1.4; margin-bottom: 6px;
+}
+.tl-node-desc {
+  font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5;
+  overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+/* Bottom detail panel */
+.timeline-detail-panel {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(13,27,42,0.97);
+  border-top: 1px solid rgba(240,192,64,0.2);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  z-index: 20; max-height: 45vh;
+  display: flex; flex-direction: column;
+}
+.timeline-detail-panel.open { transform: translateY(0); }
+.tl-detail-handle {
+  width: 32px; height: 4px; background: rgba(255,255,255,0.2);
+  border-radius: 2px; margin: 8px auto;
+}
+.tl-detail-close {
+  position: absolute; top: 6px; right: 14px;
+  background: none; border: none; color: rgba(255,255,255,0.5);
+  font-size: 20px; cursor: pointer; z-index: 2;
+}
+.tl-detail-scroll {
+  padding: 0 16px 16px; overflow-y: auto; flex: 1;
+}
+.tl-detail-scroll::-webkit-scrollbar { display: none; }
+.tl-detail-img {
+  width: 100%; max-height: 140px; object-fit: cover;
+  border-radius: 6px; margin-bottom: 10px;
+}
+.tl-detail-time {
+  display: inline-block; background: var(--alert-red); color: #fff;
+  font-size: 10px; padding: 3px 10px; border-radius: 12px;
+  letter-spacing: 1px; font-weight: 700; margin-bottom: 6px;
+}
+.tl-detail-title {
+  font-size: 16px; color: #fff; font-weight: 700; margin-bottom: 8px;
+}
+.tl-detail-text {
+  font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7;
+}
+.tl-detail-source {
+  font-size: 9px; color: rgba(255,255,255,0.35);
+  margin-top: 10px; padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.tl-detail-overlay { display: none; }
+
+/* ============ LAYER 4: QUIZ - VERTICAL PAGES ============ */
+.layer-quiz {
+  background: linear-gradient(180deg, #e8dfcf 0%, #f5f0e8 40%, #fafaf5 100%);
+  justify-content: flex-start; padding-top: 16px;
+  overflow: hidden !important;
+}
+.quiz-header {
+  width: 100%; max-width: 400px; text-align: center;
+  margin-bottom: 6px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+.quiz-label {
+  font-size: 10px; color: var(--steel); letter-spacing: 3px;
+  font-weight: 700; margin-bottom: 2px;
+}
+.quiz-title {
+  font-family: var(--font-heading); font-size: 17px;
+  font-weight: 700; color: var(--text-dark); margin-bottom: 2px;
+}
+.quiz-subtitle { font-size: 10px; color: var(--text-light); }
+
+/* Vertical page swiper */
+.quiz-swiper {
+  width: 100%; flex: 1; overflow-y: auto; overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+}
+.quiz-swiper::-webkit-scrollbar { display: none; }
+.quiz-page {
+  width: 100%; scroll-snap-align: start;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 20px 16px; min-height: 100%;
+  justify-content: center; overflow: hidden;
+}
+
+/* Quiz card - compact */
+.quiz-card {
+  width: 100%; max-width: 400px;
+  background: var(--card-bg); border-radius: var(--radius-sm);
+  padding: 12px 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.04); transition: all var(--transition);
+  margin-bottom: 10px;
+}
+.quiz-card.answered { border-color: rgba(44,62,80,0.2); }
+.quiz-card.correct { border-color: #27ae60; background: rgba(39,174,96,0.04); }
+.quiz-card.wrong { border-color: var(--alert-red); background: rgba(231,76,60,0.04); }
+.quiz-q-num {
+  font-size: 10px; color: var(--steel); font-weight: 700;
+  letter-spacing: 1px; margin-bottom: 4px;
+}
+.quiz-q-text {
+  font-size: 13px; font-weight: 600; color: var(--text-dark);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 4px; }
+.quiz-option {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px; border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.08); cursor: pointer;
+  transition: all 0.2s ease; font-size: 12px; color: var(--text-mid);
+}
+.quiz-option:hover, .quiz-option:active { background: rgba(44,62,80,0.05); }
+.quiz-option.selected {
+  border-color: var(--steel); background: rgba(44,62,80,0.06);
+  color: var(--text-dark); font-weight: 600;
+}
+.quiz-option.correct-show {
+  border-color: #27ae60; background: rgba(39,174,96,0.1);
+  color: #27ae60; font-weight: 700;
+}
+.quiz-option.wrong-show {
+  border-color: var(--alert-red); background: rgba(231,76,60,0.08);
+  color: var(--alert-red);
+}
+.quiz-option-radio {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.quiz-option.selected .quiz-option-radio { border-color: var(--steel); }
+.quiz-option.selected .quiz-option-radio::after {
+  content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--steel);
+}
+
+/* Submit area */
+.quiz-submit-area {
+  width: 100%; max-width: 400px; text-align: center;
+  padding: 12px 0 20px;
+}
+.quiz-submit-btn {
+  padding: 12px 48px; border: none; border-radius: 30px;
+  background: linear-gradient(135deg, var(--steel), var(--navy));
+  color: white; font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  cursor: pointer; transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(44,62,80,0.3);
+}
+.quiz-submit-btn:active { transform: scale(0.96); }
+.quiz-submit-btn:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
+
+.quiz-result {
+  text-align: center; margin-top: 12px; padding: 14px;
+  background: var(--card-bg); border-radius: var(--radius-sm);
+  display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  max-width: 400px; width: 100%;
+}
+.quiz-result.show { display: block; animation: fadeInUp 0.4s ease-out; }
+.quiz-score {
+  font-size: 32px; font-weight: 900; color: var(--steel);
+  font-family: var(--font-heading);
+}
+.quiz-grade { font-size: 13px; color: var(--text-mid); margin-top: 2px; }
+.quiz-advice {
+  font-size: 11px; color: var(--text-light); margin-top: 4px; line-height: 1.5;
+}
+
+.quiz-pages-dots {
+  display: none;
+}
+
+/* ============ LAYER 5: ENDING ============ */
+.layer-ending {
+  background: linear-gradient(180deg, #0d1b2a 0%, #1a2a3a 50%, #0d1b2a 100%);
+  justify-content: flex-start; padding-top: 28px; padding-bottom: 50px; gap: 16px;
+}
+.ending-bg-img {
+  position: absolute; top: 15%; left: 0; width: 100%; height: 40%;
+  object-fit: contain; z-index: 0; opacity: 0.08;
+}
+.ending-section {
+  width: 100%; max-width: 400px; text-align: center;
+}
+.ending-label {
+  font-size: 10px; color: var(--warm-yellow); letter-spacing: 3px;
+  font-weight: 700; margin-bottom: 4px;
+}
+.ending-title {
+  font-family: var(--font-heading); font-size: 20px;
+  color: #ffffff; font-weight: 700; margin-bottom: 16px;
+}
+.safety-cards {
+  width: 100%; max-width: 400px; display: flex;
+  flex-direction: column; gap: 10px;
+}
+.safety-card {
+  background: rgba(255,255,255,0.06); border-radius: var(--radius-sm);
+  padding: 14px 16px; text-align: left;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.safety-card-icon { font-size: 24px; flex-shrink: 0; width: 36px; text-align: center; }
+.safety-card-content h4 {
+  font-size: 14px; color: #ffffff; font-weight: 700; margin-bottom: 4px;
+}
+.safety-card-content p {
+  font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5;
+}
+.embassy-card {
+  width: 100%; max-width: 400px;
+  background: rgba(240,192,64,0.08); border: 1px solid rgba(240,192,64,0.2);
+  border-radius: var(--radius-sm); padding: 16px 16px; text-align: center;
+}
+.embassy-card h4 {
+  font-size: 13px; color: var(--warm-yellow); font-weight: 700; margin-bottom: 8px;
+}
+.embassy-card .phone {
+  font-size: 18px; color: #ffffff; font-weight: 900;
+  letter-spacing: 2px; font-family: var(--font-heading);
+}
+.embassy-card .note {
+  font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 6px; line-height: 1.5;
+}
+.member-table {
+  width: 100%; max-width: 400px; border-collapse: collapse;
+  margin-top: 8px; font-size: 13px; color: rgba(255,255,255,0.8);
+}
+.member-table th {
+  padding: 8px 10px; text-align: center; font-size: 11px;
+  color: var(--warm-yellow); letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.member-table td {
+  padding: 8px 10px; text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px;
+}
+.member-table tr:last-child td { border-bottom: none; }
+.ending-declaration {
+  width: 100%; max-width: 400px; text-align: center;
+  padding: 16px 10px; margin-top: 8px;
+}
+.ending-declaration p {
+  font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.6;
+}
+/* Source citations */
+.source-section {
+  width: 100%; max-width: 400px;
+  margin-top: 12px;
+}
+.source-title {
+  font-size: 12px; color: var(--warm-yellow); letter-spacing: 3px;
+  font-weight: 700; text-align: center; margin-bottom: 12px;
+}
+.source-list {
+  display: flex; flex-direction: column; gap: 0;
+}
+.source-item {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  text-align: left;
+}
+.source-media {
+  font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 600; margin-bottom: 2px;
+}
+.source-detail {
+  font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.4;
+}
+.source-link {
+  font-size: 9px; color: rgba(240,192,64,0.4); font-family: monospace; margin-top: 2px;
+}
+.ending-thanks {
+  font-size: 16px; color: rgba(255,255,255,0.4);
+  letter-spacing: 3px; font-weight: 300; margin-top: 8px;
+}
+
+/* ============ PROGRESS BAR ============ */
+.progress-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,0.1); z-index: 50;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--steel), var(--warm-yellow));
+  transition: width 0.3s ease; width: 0%;
+}
+
+/* ============ PARTICLES AI ============ */
+.particles-container {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: hidden; z-index: 0;
+}
+.particle {
+  position: absolute; border-radius: 50%; opacity: 0;
+  animation: floatUp var(--dur) ease-in infinite;
+  animation-delay: var(--delay);
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.2; }
+  100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+/* ============ RESPONSIVE ============ */
+@media screen and (max-width: 360px) {
+  .passport-scene { width: 200px; height: 300px; }
+  .cover-title { font-size: 19px; }
+  .event-main-title { font-size: 18px; }
+  .fact-card-title { font-size: 15px; }
+  .quiz-card { padding: 12px 10px; }
+  .contrast-card-content { padding: 14px 10px; }
+  .z-node-card { width: 42%; padding: 10px; }
+  .z-node-img-wrap { width: 42%; }
+  .z-node-title { font-size: 12px; }
+  .z-node-desc { font-size: 10px; }
+  .passport-inner-page { padding: 12px 10px; }
+  .pp-photo-area { width: 56px; height: 72px; }
+}
+@media screen and (min-width: 768px) {
+  .layer { padding: 40px 60px; }
+  .passport-wrapper { width: 300px; height: 420px; }
+  .cover-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="main-container" id="mainContainer">
+
+<!-- ==================== LAYER 1: COVER - INTERACTIVE PASSPORT ==================== -->
+<section class="layer layer-cover" id="layer1">
+  <img class="cover-bg-img" src="generated-images/Passport__travel_documents_and_2026-06-02T14-14-47.png" alt="" loading="lazy">
+  <div class="particles-container" id="particles1"></div>
+
+  <div class="passport-scene">
+    <div class="passport-hint" id="passportHint">点击护照翻开</div>
+
+    <div class="passport-book" id="passportBook">
+      <!-- Back cover (static base) -->
+      <div class="passport-back-cover"></div>
+
+      <!-- Inner pages stack -->
+      <div class="passport-pages-stack" id="passportPagesStack">
+        <!-- Page 1: Photo page -->
+        <div class="passport-inner-page active-page" data-page="0">
+          <div class="pp-photo-header">People's Republic of China<br>PASSPORT</div>
+          <div class="pp-photo-area">
+            <img src="generated-images/Passport__travel_documents_and_2026-06-02T14-14-47.png" alt="" loading="lazy">
+          </div>
+          <div class="pp-info-row"><span class="lbl">Type</span><span>P</span></div>
+          <div class="pp-info-row"><span class="lbl">Code</span><span>CHN</span></div>
+          <div class="pp-info-row"><span class="lbl">Name</span><span>WANG **</span></div>
+          <div class="pp-info-row"><span class="lbl">Nationality</span><span>Chinese</span></div>
+          <div class="pp-passport-no">E▪12345678</div>
+        </div>
+
+        <!-- Page 2: Case info -->
+        <div class="passport-inner-page next-page" data-page="1">
+          <div style="text-align:center;margin-top:20px;">
+            <div style="font-size:9px;color:#c0392b;letter-spacing:3px;font-weight:700;margin-bottom:6px;">特别关注</div>
+            <div class="pp-info-title">当执法者<br>成为绑匪</div>
+            <div class="pp-info-desc" style="text-align:center;">
+              2026年5月，<span class="hl">泰国警察</span><br>
+              涉嫌绑架勒索<br>中国公民<br>
+              <span style="font-size:10px;">—— 案件深度调查 ——</span>
+            </div>
+            <div class="pp-info-stamp">URGENT</div>
+          </div>
+        </div>
+
+        <!-- Page 3: Evidence stamps -->
+        <div class="passport-inner-page hidden-page" data-page="2">
+          <div style="font-size:9px;color:#2c3e50;letter-spacing:2px;text-align:center;margin-bottom:10px;font-weight:700;">案件记录</div>
+          <div class="pp-stamp-grid">
+            <div class="pp-stamp-item">
+              <div class="stamp-icon">&#x2708;</div>
+              <div class="stamp-label">入境</div>
+              <div class="stamp-date">2026.05</div>
+            </div>
+            <div class="pp-stamp-item">
+              <div class="stamp-icon">&#x1F6A8;</div>
+              <div class="stamp-label">事件</div>
+              <div class="stamp-date">05.XX 20:30</div>
+            </div>
+            <div class="pp-stamp-item">
+              <div class="stamp-icon">&#x1F4DE;</div>
+              <div class="stamp-label">使馆介入</div>
+              <div class="stamp-date">次日15:00</div>
+            </div>
+            <div class="pp-stamp-item">
+              <div class="stamp-icon">&#x1F6D1;</div>
+              <div class="stamp-label">嫌犯落网</div>
+              <div class="stamp-date">第三日</div>
+            </div>
+          </div>
+          <div class="pp-stamp-warn">&#x26A0; 本案件已移交司法程序</div>
+          <div style="text-align:center;margin-top:8px;font-size:8px;color:#8a8a9e;">信源：新民晚报 | 中国驻泰国大使馆</div>
+        </div>
+      </div>
+
+      <!-- Front cover (opens on click) -->
+      <div class="passport-cover-front" id="passportCover">
+        <img class="cover-emblem-img" src="generated-images/A_beautiful_Thai_travel_illust_2026-06-02T14-13-31.png" alt="" loading="lazy">
+        <div class="cover-report-label">深度报道</div>
+        <div class="cover-report-sub">IN-DEPTH REPORT</div>
+        <!-- Back face of cover -->
+        <div class="passport-cover-inside">
+          <div class="cover-inside-stamp"><span>特别<br>关注</span></div>
+          <div class="cover-inside-text">融合新闻作品<br>2026年6月<br>网新5班第五组</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page navigation -->
+    <div class="passport-page-nav" id="passportPageNav">
+      <button class="pp-nav-btn" id="ppPrevBtn" disabled>◂</button>
+      <span class="pp-page-indicator" id="ppIndicator">1 / 3</span>
+      <button class="pp-nav-btn" id="ppNextBtn">▸</button>
+    </div>
+  </div>
+
+  <div class="cover-info">
+    <h1 class="cover-title">微笑国度的<span class="accent">暗面</span></h1>
+    <p class="cover-subtitle">当执法者成为绑匪</p>
+    <div class="cover-meta">
+      <span>泰国警察绑架勒索事件深度报道</span>
+      <span>网新5班第五组 | 融合新闻作品创作</span>
+    </div>
+  </div>
+  <div class="cover-swipe">向上滑动阅读</div>
+</section>
+
+<!-- ==================== LAYER 2: EVENT ==================== -->
+<section class="layer layer-event layer-scrollable" id="layer2">
+  <img class="event-header-bg" src="generated-images/A_beautiful_Thai_travel_illust_2026-06-02T14-13-31.png" alt="" loading="lazy">
+  <div class="event-header" id="eventHeader">
+    <div class="event-section-label">事件聚焦</div>
+    <h2 class="event-main-title">泰国，不只是微笑</h2>
+  </div>
+  <div class="event-contrast" id="eventContrast">
+    <div class="contrast-card thailand">
+      <img class="contrast-card-img" src="generated-images/A_beautiful_Thai_travel_illust_2026-06-02T14-13-31.png" alt="泰国旅游" loading="lazy">
+      <div class="contrast-card-overlay"></div>
+      <div class="contrast-card-content">
+        <div style="font-size:22px;margin-bottom:4px;">&#x1F31E;</div>
+        <div class="contrast-label">旅游天堂</div>
+        <div class="contrast-desc">每年超1000万中国游客<br>热情好客的微笑国度</div>
+      </div>
+    </div>
+    <div class="contrast-card darkside">
+      <img class="contrast-card-img" src="generated-images/Dark_news_illustration_in_flat_2026-06-02T14-14-09.png" alt="警示" loading="lazy">
+      <div class="contrast-card-overlay"></div>
+      <div class="contrast-card-content">
+        <div style="font-size:22px;margin-bottom:4px;">&#x26A0;</div>
+        <div class="contrast-label">暗面浮现</div>
+        <div class="contrast-desc">2026年5月<br>中国公民遭执法人员绑架勒索</div>
+      </div>
+    </div>
+  </div>
+  <div class="event-fact-card" id="eventFact">
+    <div class="fact-card-label">核心事实</div>
+    <div class="fact-card-title">当警徽蒙尘：一场由执法者策划的绑架</div>
+    <div class="fact-card-body">
+      2026年5月，多名<span class="highlight">泰国警察</span>涉嫌在曼谷地区假冒执法名义，
+      对中国公民实施<span class="highlight">绑架和勒索</span>。受害者被非法拘禁，
+      家属被索要巨额赎金。案件经中国驻泰国大使馆介入后，
+      泰国警方展开内部调查，涉案人员被依法处置。
+    </div>
+  </div>
+  <div class="event-vibration" id="eventVibe">
+    <div class="vibe-icon">&#x1F4E3;</div>
+    <div class="vibe-text">此事震动中泰社会</div>
+  </div>
+</section>
+
+<!-- ==================== LAYER 3: TIMELINE - HORIZONTAL ==================== -->
+<section class="layer layer-timeline" id="layer3">
+  <div class="particles-container" id="particles3"></div>
+  <div class="timeline-header">
+    <div class="timeline-label">案件回溯</div>
+    <div class="timeline-title">48小时关键节点</div>
+    <div class="timeline-scroll-hint">← 左右滑动浏览 →</div>
+  </div>
+  <div class="timeline-h-rail-wrap" id="timelineHRailWrap">
+    <div class="timeline-h-rail" id="timelineHRail"></div>
+  </div>
+  <!-- Bottom detail panel -->
+  <div class="timeline-detail-panel" id="tlDetailPanel">
+    <div class="tl-detail-handle"></div>
+    <button class="tl-detail-close" id="tlDetailClose">&times;</button>
+    <div class="tl-detail-scroll">
+      <img class="tl-detail-img" id="tlDetailImg" src="" alt="" style="display:none;">
+      <div class="tl-detail-time" id="tlDetailTime"></div>
+      <div class="tl-detail-title" id="tlDetailTitle"></div>
+      <div class="tl-detail-text" id="tlDetailText"></div>
+      <div class="tl-detail-source" id="tlDetailSource"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LAYER 4: QUIZ ==================== -->
+<section class="layer layer-quiz" id="layer4">
+  <div class="quiz-header">
+    <div class="quiz-label">安全知识</div>
+    <div class="quiz-title">海外安全知识小测验</div>
+    <div class="quiz-subtitle">上下滑动翻页答题</div>
+  </div>
+  <div class="quiz-swiper" id="quizSwiper">
+    <!-- Pages injected by JS -->
+  </div>
+  <div class="quiz-pages-dots" id="quizDots"></div>
+</section>
+
+<!-- ==================== LAYER 5: ENDING ==================== -->
+<section class="layer layer-ending layer-scrollable" id="layer5">
+  <img class="ending-bg-img" src="generated-images/Safety_and_protection_illustra_2026-06-02T14-16-12.png" alt="" loading="lazy">
+  <div class="ending-section">
+    <div class="ending-label">安全指南</div>
+    <div class="ending-title">海外出行安全提醒</div>
+  </div>
+  <div class="safety-cards" id="safetyCards"></div>
+  <div class="embassy-card">
+    <h4>中国驻泰国大使馆领事保护</h4>
+    <div class="phone">+66-2-245-7010</div>
+    <div class="note">24小时领事保护热线 | 外交部全球领事保护与服务应急热线：+86-10-12308</div>
+  </div>
+  <div class="ending-section" style="margin-top:16px;">
+    <div class="ending-label">小组成员</div>
+    <div class="member-names" id="memberNames"></div>
+  </div>
+  <div class="ending-declaration">
+    <p>本H5新闻仅用于课程作业，非商业新闻</p>
+  </div>
+
+  <div class="source-section">
+    <div class="source-title">📰 信源标注</div>
+    <div class="source-list">
+      <div class="source-item">
+        <div class="source-media">新民晚报</div>
+        <div class="source-detail">2026年5月系列报道《中国公民在泰遭警察绑架勒索》</div>
+      </div>
+      <div class="source-item">
+        <div class="source-media">中国驻泰国大使馆</div>
+        <div class="source-detail">2026年5月领事提醒及案件通报公告</div>
+      </div>
+      <div class="source-item">
+        <div class="source-media">泰国国家警察总署</div>
+        <div class="source-detail">2026年5月案件调查通报及纪律处分公告</div>
+      </div>
+      <div class="source-item" style="border-bottom:none;">
+        <div class="source-media">外交部领事司</div>
+        <div class="source-detail">海外中国公民安全提醒 · 领事保护与服务指南</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ending-thanks">感谢阅读</div>
+</section>
+
+</div>
+
+<script>
+// ============ PASSPORT INTERACTION ============
+const passportBook = document.getElementById('passportBook');
+const passportCover = document.getElementById('passportCover');
+const passportHint = document.getElementById('passportHint');
+const passportPageNav = document.getElementById('passportPageNav');
+const ppPrevBtn = document.getElementById('ppPrevBtn');
+const ppNextBtn = document.getElementById('ppNextBtn');
+const ppIndicator = document.getElementById('ppIndicator');
+let passportOpened = false;
+let currentPage = 0;
+const totalPages = 3;
+
+let passportFlipping = false;
+
+function openPassport() {
+  if (passportOpened) return;
+  passportOpened = true;
+  passportCover.classList.add('opened');
+  passportHint.classList.add('done');
+  passportBook.classList.add('opened');
+  setTimeout(() => { passportPageNav.classList.add('visible'); }, 550);
+}
+
+function closePassport() {
+  if (!passportOpened || passportFlipping) return;
+  passportOpened = false;
+  passportCover.classList.remove('opened');
+  passportBook.classList.remove('opened');
+  passportHint.classList.remove('done');
+  passportPageNav.classList.remove('visible');
+  currentPage = 0;
+  updatePassportPagesInstant();
+}
+
+function updatePassportPagesInstant() {
+  const pages = document.querySelectorAll('.passport-inner-page');
+  pages.forEach((p, i) => {
+    p.classList.remove('active-page','prev-page','next-page','hidden-page','flipping-out','flipping-in');
+    if (i === currentPage) p.classList.add('active-page');
+    else if (i < currentPage) p.classList.add('prev-page');
+    else if (i === currentPage + 1) p.classList.add('next-page');
+    else p.classList.add('hidden-page');
+  });
+  ppIndicator.textContent = (currentPage + 1) + ' / ' + totalPages;
+  ppPrevBtn.disabled = currentPage === 0;
+  ppNextBtn.disabled = currentPage === totalPages - 1;
+}
+
+function flipPassportPage(direction) {
+  if (passportFlipping) return;
+  const newPage = currentPage + direction;
+  if (newPage < 0 || newPage >= totalPages) return;
+  passportFlipping = true;
+
+  const pages = document.querySelectorAll('.passport-inner-page');
+  const stack = document.getElementById('passportPagesStack');
+  stack.classList.add('flipping');
+  ppPrevBtn.disabled = true;
+  ppNextBtn.disabled = true;
+
+  // Animate current page out
+  pages[currentPage].classList.remove('active-page');
+  pages[currentPage].classList.add('flipping-out');
+  if (direction > 0) pages[currentPage].classList.add('prev-page');
+  else pages[currentPage].classList.add('next-page');
+
+  // Prepare new page
+  pages[newPage].classList.remove('prev-page','next-page','hidden-page');
+  pages[newPage].classList.add('flipping-in');
+
+  setTimeout(() => {
+    // Clean up animation classes
+    pages.forEach((p, i) => {
+      p.classList.remove('flipping-out','flipping-in','active-page','prev-page','next-page','hidden-page');
+      if (i === newPage) p.classList.add('active-page');
+      else if (i < newPage) p.classList.add('prev-page');
+      else if (i === newPage + 1) p.classList.add('next-page');
+      else p.classList.add('hidden-page');
+    });
+    currentPage = newPage;
+    ppIndicator.textContent = (currentPage + 1) + ' / ' + totalPages;
+    ppPrevBtn.disabled = currentPage === 0;
+    ppNextBtn.disabled = currentPage === totalPages - 1;
+    stack.classList.remove('flipping');
+    passportFlipping = false;
+  }, 500);
+}
+
+passportCover.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!passportOpened) openPassport();
+});
+
+document.querySelector('.passport-scene').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget || e.target.closest('.passport-back-cover')) {
+    if (passportOpened) closePassport();
+  }
+});
+
+ppPrevBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  flipPassportPage(-1);
+});
+ppNextBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  flipPassportPage(1);
+});
+
+// Swipe support
+let touchStartX = 0;
+document.getElementById('passportPagesStack').addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+document.getElementById('passportPagesStack').addEventListener('touchend', (e) => {
+  if (!passportOpened || passportFlipping) return;
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (diff > 40) flipPassportPage(1);
+  else if (diff < -40) flipPassportPage(-1);
+});
+
+// ============ UTILITY ============
+function observeElement(el, className) {
+  if (!el) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) el.classList.add(className || 'visible');
+    });
+  }, { threshold: 0.3 });
+  observer.observe(el);
+}
+
+// ============ PROGRESS BAR ============
+const progressFill = document.getElementById('progressFill');
+const mainContainer = document.getElementById('mainContainer');
+mainContainer.addEventListener('scroll', () => {
+  const scrollTop = mainContainer.scrollTop;
+  const scrollHeight = mainContainer.scrollHeight - mainContainer.clientHeight;
+  const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  progressFill.style.width = Math.min(progress, 100) + '%';
+});
+
+// ============ PARTICLES ============
+function createParticles(containerId, count, color) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.cssText = `
+      left: ${Math.random() * 100}%;
+      bottom: ${Math.random() * 20}%;
+      width: ${2 + Math.random() * 4}px;
+      height: ${2 + Math.random() * 4}px;
+      background: ${color};
+      --dur: ${6 + Math.random() * 10}s;
+      --delay: ${Math.random() * 8}s;
+    `;
+    container.appendChild(particle);
+  }
+}
+createParticles('particles1', 25, 'rgba(240,192,64,0.3)');
+createParticles('particles3', 20, 'rgba(240,192,64,0.25)');
+
+// ============ LAYER 2 OBSERVERS ============
+observeElement(document.getElementById('eventHeader'), 'visible');
+observeElement(document.getElementById('eventContrast'), 'visible');
+observeElement(document.getElementById('eventFact'), 'visible');
+observeElement(document.getElementById('eventVibe'), 'visible');
+
+// ============ LAYER 3: TIMELINE - HORIZONTAL ============
+const timelineData = [
+  { time: '16:00', title: '抵达曼谷', desc: '中国公民王某（化名）持旅游签证抵达曼谷素万那普机场，计划在泰停留5天。入境手续正常，无异常情况。', source: '来源：新民晚报 2026年5月报道', img: 'generated-images/Bangkok_Suvarnabhumi_airport_a_2026-06-02T14-20-43.png' },
+  { time: '20:30', title: '遭遇盘查', desc: '王某在曼谷素坤逸路附近被三名身着警服的男子拦下，对方出示"警官证"，以"涉嫌违法"为由要求配合调查。王某被带上一辆无标识车辆。', source: '来源：新民晚报 2026年5月报道', img: 'generated-images/Police_interrogation_scene_ill_2026-06-02T14-21-21.png' },
+  { time: '22:00', title: '非法拘禁', desc: '车辆驶离曼谷市区，王某被带至一处偏僻场所。其手机被没收，人身自由受到限制。此时王某意识到情况异常，但已无法脱身。', source: '来源：泰国警方调查通报', img: 'generated-images/Dark_news_illustration_in_flat_2026-06-02T14-14-09.png' },
+  { time: '次日10:00', title: '勒索开始', desc: '绑匪通过王某手机联系其家属，谎称王某涉及刑事案件，要求支付"保释金"约合人民币30万元。家属接到电话后极度恐慌。', source: '来源：家属证词/新民晚报', img: 'generated-images/Ransom_phone_call_illustration_2026-06-02T14-21-56.png' },
+  { time: '次日15:00', title: '使馆介入', desc: '家属通过微信联系中国驻泰国大使馆领事保护热线。使馆立即启动应急机制，向泰国外交部和警方高层进行交涉。', source: '来源：中国驻泰国大使馆公告', img: 'generated-images/Chinese_embassy_building_with__2026-06-02T14-22-34.png' },
+  { time: '次日20:00', title: '警方行动', desc: '泰国警察总署成立专案组，通过技术手段锁定嫌疑人位置。调查发现，涉案人员中包括在职警察和离职警员。', source: '来源：泰国警察总署通报', img: 'generated-images/Police_interrogation_scene_ill_2026-06-02T14-21-21.png' },
+  { time: '第三日凌晨02:00', title: '成功解救', desc: '泰国警方突击行动，在曼谷市郊一处住宅楼内解救人质。王某身体多处挫伤，精神状态受到严重创伤，被送往医院检查。', source: '来源：中国驻泰国大使馆公告', img: 'generated-images/Police_rescue_operation_and_ar_2026-06-02T14-23-11.png' },
+  { time: '第三日上午', title: '嫌犯落网', desc: '7名涉案嫌疑人全部被逮捕，其中包括4名在职警察。泰国警方表示将依法严惩，并对警队内部进行纪律整顿。中国使馆发表声明感谢泰方行动。', source: '来源：新民晚报/泰国国家警察总署', img: 'generated-images/Police_rescue_operation_and_ar_2026-06-02T14-23-11.png' }
+];
+
+const tlRail = document.getElementById('timelineHRail');
+timelineData.forEach((item, i) => {
+  const node = document.createElement('div');
+  node.className = 'tl-node';
+  node.innerHTML = `<div class="tl-node-dot"></div><div class="tl-node-time">${item.time}</div><div class="tl-node-title">${item.title}</div><div class="tl-node-desc">${item.desc.substring(0,36)}...</div>`;
+  node.addEventListener('click', () => openTlDetail(i));
+  tlRail.appendChild(node);
+});
+
+// Bottom panel elements
+const tlPanel = document.getElementById('tlDetailPanel');
+const tlClose = document.getElementById('tlDetailClose');
+const tlImg = document.getElementById('tlDetailImg');
+const tlTime = document.getElementById('tlDetailTime');
+const tlTitle = document.getElementById('tlDetailTitle');
+const tlText = document.getElementById('tlDetailText');
+const tlSource = document.getElementById('tlDetailSource');
+
+function openTlDetail(index) {
+  const data = timelineData[index];
+  // Highlight active node
+  document.querySelectorAll('.tl-node').forEach((n, i) => n.classList.toggle('active', i === index));
+  // Populate panel
+  if (data.img) { tlImg.src = data.img; tlImg.style.display = 'block'; }
+  else { tlImg.style.display = 'none'; }
+  tlTime.textContent = data.time;
+  tlTitle.textContent = data.title;
+  tlText.textContent = data.desc;
+  tlSource.textContent = data.source;
+  tlPanel.classList.add('open');
+}
+
+tlClose.addEventListener('click', () => tlPanel.classList.remove('open'));
+// Close on swipe down handled by handle area
+tlPanel.addEventListener('click', (e) => {
+  if (e.target === tlPanel || e.target.classList.contains('tl-detail-handle')) {
+    tlPanel.classList.remove('open');
+  }
+});
+
+// Close panel when scrolling outside
+document.getElementById('timelineHRailWrap').addEventListener('scroll', () => {
+  if (tlPanel.classList.contains('open')) tlPanel.classList.remove('open');
+});
+
+// ============ LAYER 4: QUIZ - VERTICAL PAGES ============
+const quizQuestions = [
+  { q: '在海外遇到自称警察要求配合调查，首先应？', options: ['A. 立即配合跟对方走', 'B. 要求出示证件并联系使领馆核实', 'C. 给对方现金"和解"', 'D. 反抗并逃跑'], answer: 1 },
+  { q: '中国公民海外遇紧急情况应拨打？', options: ['A. 110', 'B. 119', 'C. 外交部领保热线 +86-10-12308', 'D. 当地旅游局电话'], answer: 2 },
+  { q: '在海外被限制人身自由，哪个做法最危险？', options: ['A. 保持冷静寻找求助机会', 'B. 激烈反抗激怒对方', 'C. 暗中记住环境特征', 'D. 配合保障人身安全'], answer: 1 },
+  { q: '出国前应做好哪些安全准备？', options: ['A. 只需带足现金', 'B. 购买保险、备份证件、记录使领馆电话', 'C. 完全信任当地治安', 'D. 携带防身武器'], answer: 1 },
+  { q: '关于泰国旅游安全的正确说法？', options: ['A. 微笑国度绝对安全', 'B. 治安差不应前往', 'C. 整体治安良好，需警惕冒充执法人员诈骗', 'D. 避开曼谷就绝对安全'], answer: 2 }
+];
+
+let userAnswers = new Array(5).fill(null);
+let quizSubmitted = false;
+
+const quizSwiper = document.getElementById('quizSwiper');
+const quizDotsEl = document.getElementById('quizDots');
+
+// Build 3 pages: Q1+Q2 | Q3+Q4 | Q5+submit+result
+const pageSplits = [[0,1],[2,3],[4]];
+const pageLabels = ['第一部分', '第二部分', '完成'];
+
+pageSplits.forEach((qis, pi) => {
+  const page = document.createElement('div');
+  page.className = 'quiz-page';
+  page.id = 'quizPage' + pi;
+
+  qis.forEach(qi => {
+    const q = quizQuestions[qi];
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.setAttribute('data-qi', qi);
+    card.innerHTML = `<div class="quiz-q-num">第 ${qi + 1} 题 / 共 5 题</div><div class="quiz-q-text">${q.q}</div><div class="quiz-options"></div>`;
+    const optsWrap = card.querySelector('.quiz-options');
+    q.options.forEach((opt, oi) => {
+      const optDiv = document.createElement('div');
+      optDiv.className = 'quiz-option';
+      optDiv.innerHTML = `<div class="quiz-option-radio"></div><span>${opt}</span>`;
+      optDiv.addEventListener('click', () => {
+        if (quizSubmitted) return;
+        optsWrap.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+        optDiv.classList.add('selected');
+        userAnswers[qi] = oi;
+      });
+      optsWrap.appendChild(optDiv);
+    });
+    page.appendChild(card);
+  });
+
+  // Page 3: submit button + result
+  if (pi === 2) {
+    const submitArea = document.createElement('div');
+    submitArea.className = 'quiz-submit-area';
+    submitArea.innerHTML = '<button class="quiz-submit-btn" id="quizSubmitBtn">提交答案</button>';
+    page.appendChild(submitArea);
+
+    const resultDiv = document.createElement('div');
+    resultDiv.className = 'quiz-result';
+    resultDiv.id = 'quizResult';
+    resultDiv.innerHTML = '<div class="quiz-score" id="quizScoreDisplay">--</div><div class="quiz-grade" id="quizGrade"></div><div class="quiz-advice" id="quizAdvice"></div>';
+    page.appendChild(resultDiv);
+  }
+
+  quizSwiper.appendChild(page);
+
+  // Page dot
+  const dot = document.createElement('div');
+  dot.className = 'quiz-pages-dot';
+  dot.id = 'quizDot' + pi;
+  quizDotsEl.appendChild(dot);
+});
+
+// Add submit listener after DOM is built
+const submitBtn = document.getElementById('quizSubmitBtn');
+const resultDiv = document.getElementById('quizResult');
+
+submitBtn.addEventListener('click', () => {
+  const unanswered = userAnswers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    // Scroll to first unanswered page
+    let firstUnanswered = 0;
+    for (let i = 0; i < 5; i++) { if (userAnswers[i] === null) { firstUnanswered = i; break; } }
+    const targetPage = firstUnanswered < 2 ? 0 : firstUnanswered < 4 ? 1 : 2;
+    quizSwiper.scrollTo({ top: targetPage * quizSwiper.clientHeight, behavior: 'smooth' });
+    return;
+  }
+  quizSubmitted = true;
+  let score = 0;
+  const allCards = quizSwiper.querySelectorAll('.quiz-card');
+  allCards.forEach((card, i) => {
+    const correctIdx = quizQuestions[i].answer;
+    const opts = card.querySelectorAll('.quiz-option');
+    opts.forEach((opt, oi) => {
+      opt.style.pointerEvents = 'none';
+      if (oi === correctIdx) opt.classList.add('correct-show');
+      if (oi === userAnswers[i] && oi !== correctIdx) opt.classList.add('wrong-show');
+    });
+    card.classList.add('answered');
+    if (userAnswers[i] === correctIdx) { score++; card.classList.add('correct'); }
+    else { card.classList.add('wrong'); }
+  });
+  submitBtn.disabled = true;
+  submitBtn.textContent = '已提交';
+
+  const scoreDisplay = document.getElementById('quizScoreDisplay');
+  const gradeEl = document.getElementById('quizGrade');
+  const adviceEl = document.getElementById('quizAdvice');
+  scoreDisplay.textContent = score + ' / 5';
+  let grade, advice;
+  if (score >= 5) { grade = '安全专家'; advice = '你对海外安全知识非常了解，出行前继续保持警惕，安全第一！'; }
+  else if (score >= 3) { grade = '安全意识良好'; advice = '你具备基本的安全意识，建议出行前进一步了解目的地安全形势。'; }
+  else if (score >= 1) { grade = '需要加强防范'; advice = '海外安全知识较为薄弱，强烈建议出国前认真学习安全指南。'; }
+  else { grade = '安全知识不足'; advice = '请务必在出行前充分了解海外安全知识，记录使领馆紧急联系方式。'; }
+  gradeEl.textContent = '评价等级：' + grade;
+  adviceEl.textContent = advice;
+  resultDiv.classList.add('show');
+});
+
+// Page dot update
+const qDots = quizDotsEl.querySelectorAll('.quiz-pages-dot');
+quizSwiper.addEventListener('scroll', () => {
+  const pageIdx = Math.round(quizSwiper.scrollTop / quizSwiper.clientHeight);
+  qDots.forEach((d, i) => d.classList.toggle('cur', i === pageIdx));
+});
+qDots[0]?.classList.add('cur');
+
+// ============ LAYER 5: SAFETY CARDS ============
+const safetyData = [
+  { icon: '\u{1F4CB}', title: '出行前准备', desc: '购买综合旅游保险，备份护照和签证页，记录中国驻当地使领馆地址和紧急联系电话。' },
+  { icon: '\u{1F6A8}', title: '提高警惕', desc: '遇到自称执法人员者，要求其出示有效证件；如有疑虑，立即拨打使领馆电话核实。' },
+  { icon: '\u{1F4DE}', title: '紧急求助', desc: '牢记外交部全球领事保护热线 +86-10-12308，遇紧急情况保持冷静，优先保障人身安全。' },
+  { icon: '\u{1F465}', title: '结伴出行', desc: '尽量结伴出行，避免深夜单独前往偏僻区域，保持与家人朋友的定期联系。' },
+  { icon: '\u{2696}', title: '依法维权', desc: '遭遇不法侵害后，第一时间报警并联系使领馆，保留证据，依法维护自身合法权益。' }
+];
+const safetyCards = document.getElementById('safetyCards');
+safetyData.forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'safety-card';
+  card.innerHTML = `<div class="safety-card-icon">${item.icon}</div><div class="safety-card-content"><h4>${item.title}</h4><p>${item.desc}</p></div>`;
+  safetyCards.appendChild(card);
+});
+
+// ============ MEMBER NAMES ============
+const memberNames = document.getElementById('memberNames');
+memberNames.innerHTML = '<span style="font-size:13px;color:rgba(255,255,255,0.7);letter-spacing:4px;">杜安珂 · 李梦娜 · 汤斌英 · 李璎燕 · 向思瑾</span>';
+
+// ============ KEYBOARD ============
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && tlPanel.classList.contains('open')) {
+    tlPanel.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
